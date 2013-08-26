@@ -180,10 +180,11 @@ exports.relative2absolute = function(data) {
  *
  * @param {Object} elem current element
  * @param {Array} path input path data
+ * @param {Boolean} applyTransformsStroked whether to apply transforms to stroked lines.
+ * @param {Number} floatPrecision precision (used for stroke width)
  * @return {Object} output path data
  */
-exports.applyTransforms = function(elem, path) {
-
+exports.applyTransforms = function(elem, path, applyTransformsStroked, floatPrecision) {
     // if there are no 'stroke' attr and 'a' segments
     if (
         !elem.hasAttr('transform') ||
@@ -195,12 +196,15 @@ exports.applyTransforms = function(elem, path) {
           newPoint, sx, sy, strokeWidth;
 
     if (elem.hasAttr('stroke') || elem.hasAttr('stroke-width')){
+      if (!applyTransformsStroked){
+        return path;
+      }
       if (matrix.name == 'matrix'){
-        sx = Math.sqrt(matrix.data[0] * matrix.data[0] + matrix.data[1] * matrix.data[1]);
-        sy = Math.sqrt(matrix.data[2] * matrix.data[2] + matrix.data[3] * matrix.data[3]);
+        sx = +Math.sqrt(matrix.data[0] * matrix.data[0] + matrix.data[1] * matrix.data[1]).toFixed(floatPrecision);
+        sy = +Math.sqrt(matrix.data[2] * matrix.data[2] + matrix.data[3] * matrix.data[3]).toFixed(floatPrecision);
       } else if (matrix.name == 'scale'){
-        sx = matrix.data[0];
-        sy = matrix.data[1];
+        sx = +matrix.data[0].toFixed(floatPrecision);
+        sy = +matrix.data[1].toFixed(floatPrecision);
       } else {
         sx = 1;
         sy = 1;
@@ -275,6 +279,7 @@ exports.applyTransforms = function(elem, path) {
     elem.removeAttr('transform');
 
     return path;
+
 };
 
 /**

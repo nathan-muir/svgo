@@ -80,6 +80,8 @@ exports.fn = function(item) {
                 // looks like a FontForge parsing bug
                 if (contentItem.attr('d').value.charAt(0) === 'm') {
                     delim = ' ';
+                } else {
+                    delim = '';
                 }
 
                 prevContentItem.attr('d').value += delim + contentItem.attr('d').value;

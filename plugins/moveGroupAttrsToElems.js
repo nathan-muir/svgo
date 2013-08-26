@@ -4,7 +4,10 @@ exports.type = 'perItem';
 
 exports.active = true;
 
-var pathElems = require('./_collections.js').pathElems;
+var pathElems = require('./_collections.js').pathElems.slice();
+
+pathElems.push('g');
+pathElems.push('text');
 
 /**
  * Move group attrs to the content elements.
@@ -28,13 +31,12 @@ var pathElems = require('./_collections.js').pathElems;
 exports.fn = function(item) {
 
     // move group transform attr to content's pathElems
-    var tmpPathElems = ['path', 'glyph', 'missing-glyph', 'g', 'text'];
     if (
         item.isElem('g') &&
         item.hasAttr('transform') &&
         !item.isEmpty() &&
         item.content.every(function(inner) {
-          return inner.isElem(tmpPathElems);
+          return inner.isElem(pathElems);
         })
     ) {
         item.content.forEach(function(inner) {
