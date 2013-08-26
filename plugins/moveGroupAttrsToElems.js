@@ -1,6 +1,6 @@
 'use strict';
 
-exports.type = 'perItemReverse';
+exports.type = 'perItem';
 
 exports.active = true;
 
@@ -28,12 +28,13 @@ var pathElems = require('./_collections.js').pathElems;
 exports.fn = function(item) {
 
     // move group transform attr to content's pathElems
+    var tmpPathElems = ['path', 'glyph', 'missing-glyph', 'g', 'text'];
     if (
         item.isElem('g') &&
         item.hasAttr('transform') &&
         !item.isEmpty() &&
         item.content.every(function(inner) {
-            return inner.isElem(pathElems);
+          return inner.isElem(tmpPathElems);
         })
     ) {
         item.content.forEach(function(inner) {

@@ -2,7 +2,7 @@
 
 exports.type = 'perItemReverse';
 
-exports.active = true;
+exports.active = false;
 
 var inheritableAttrs = require('./_collections').inheritableAttrs,
     pathElems = require('./_collections.js').pathElems;
