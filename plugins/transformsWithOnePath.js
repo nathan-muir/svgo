@@ -28,8 +28,8 @@ exports.params = {
 
     // stringify params
     floatPrecision: 3,
-    leadingZero: true,
-    negativeExtraSpace: true
+    leadingZero: false,
+    negativeExtraSpace: false
 };
 
 var relative2absolute = require('./_path.js').relative2absolute,

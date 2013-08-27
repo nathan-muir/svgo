@@ -13,8 +13,8 @@ exports.params = {
     floatPrecision: 3,
     removeUseless: true,
     collapseRepeated: true,
-    leadingZero: true,
-    negativeExtraSpace: true
+    leadingZero: false,
+    negativeExtraSpace: false
 };
 
 var pathElems = require('./_collections.js').pathElems,

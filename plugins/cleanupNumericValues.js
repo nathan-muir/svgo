@@ -6,7 +6,7 @@ exports.active = true;
 
 exports.params = {
     floatPrecision: 3,
-    leadingZero: true,
+    leadingZero: false,
     defaultPx: true
 };
 

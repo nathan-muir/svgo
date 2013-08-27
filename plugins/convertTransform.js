@@ -13,7 +13,7 @@ exports.params = {
       shortRotate: true,
       removeUseless: true,
       collapseIntoOne: true,
-      leadingZero: true,
+      leadingZero: false,
       negativeExtraSpace: false
 };
 
