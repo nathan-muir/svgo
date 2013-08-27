@@ -45,7 +45,7 @@ exports.attrsGroupsDefaults = {
         'stop-opacity': '1',
         'fill-opacity': '1',
         'fill-rule': 'nonzero',
-        fill: '#000',
+        //fill: '#000',
         stroke: 'none',
         'stroke-width': '1',
         'stroke-linecap': 'butt',
