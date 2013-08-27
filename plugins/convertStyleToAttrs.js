@@ -33,9 +33,12 @@ exports.fn = function(item) {
         var styles = item.attr('style').value.split(';').filter(function(style) {
                 return style;
             }),
-            attrs = {};
+            attrs = {},
+            inkscapeFontSpecification = null;
 
         if (styles.length) {
+
+
 
             styles = styles.filter(function(style) {
                 if (style) {
@@ -45,7 +48,11 @@ exports.fn = function(item) {
                     var prop = style[0].trim(),
                         val = style[1].replace(/^[\'\"](.+)[\'\"]$/, '$1').trim();
 
-                    if (stylingProps.indexOf(prop) > -1) {
+                    if (style[0] === '-inkscape-font-specification' ){
+                        inkscapeFontSpecification = style[1];
+
+                        return false;
+                    } else if (stylingProps.indexOf(prop) > -1) {
 
                         attrs[prop] = {
                             name: prop,
@@ -61,7 +68,23 @@ exports.fn = function(item) {
                 return true;
             });
 
+
             EXTEND(item.attrs, attrs);
+
+          if (inkscapeFontSpecification !== null){
+              if (item.hasAttr('font-family')){
+                  if (item.attrs['font-family'].value !== inkscapeFontSpecification){
+                    item.attrs['font-family'].value = "&quot;" + inkscapeFontSpecification + "&quot;," + item.attrs['font-family'].value;
+                  }
+              } else {
+                  item.attrs['font-family'] = {
+                        name: 'font-family',
+                        value: "&quot;" + inkscapeFontSpecification + "&quot;",
+                        local: 'font-family',
+                        prefix: ''
+                    };
+              }
+          }
 
             if (styles.length) {
                 item.attr('style').value = styles.join(';')
